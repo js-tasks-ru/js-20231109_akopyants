@@ -27,7 +27,7 @@ export function createGetter(path) {
   const { key, rest } = getPartString(path);
 
   return (obj) => {
-    if (!obj) {
+    if (!obj || !(obj.hasOwnProperty(key))) {
       return undefined;
     }
 
