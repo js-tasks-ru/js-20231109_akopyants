@@ -3,17 +3,39 @@
  * @param {string} path - the strings path separated by dot
  * @returns {function} - function-getter which allow get value from object by set path
  */
+function getPartString(path) {
+  let key = "";
+
+  for (let i = 0; i < path.length; i++) {
+    const symbol = path[i];
+
+    if (symbol === ".") {
+      break;
+    }
+
+    key += symbol;
+  }
+
+  if (key.length === path.length) {
+    return { key, rest: "" };
+  }
+
+  return { key, rest: path.substring(key.length + 1) };
+}
+
 export function createGetter(path) {
+  const { key, rest } = getPartString(path);
+
   return (obj) => {
-    const keys = path.split(".");
-    let result = obj;
+    if (!obj) {
+      return undefined;
+    }
 
-    keys.forEach((key) => {
-      if (result) {
-        result = result[key];
-      }
-    });
+    if (rest == "") {
+      return obj[key];
+    }
 
-    return result;
+    let nestedGetter = createGetter(rest);
+    return nestedGetter(obj[key]);
   };
 }
