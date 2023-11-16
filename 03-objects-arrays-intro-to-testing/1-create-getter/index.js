@@ -3,6 +3,17 @@
  * @param {string} path - the strings path separated by dot
  * @returns {function} - function-getter which allow get value from object by set path
  */
-export function createGetter(path) {
+export function createGetter(field) {
+  return (obj) => {
+    const keys = field.split(".");
+    let result = obj;
 
+    keys.forEach((key) => {
+      if (result) {
+        result = result[key];
+      }
+    });
+
+    return result;
+  };
 }
