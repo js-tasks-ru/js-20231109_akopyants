@@ -11,7 +11,7 @@ export function createGetter(path) {
     let result = obj;
 
     for (const key of keys) {
-      if (key in result) {
+      if (result.hasOwnProperty(key)) {
         result = result[key];
       } else {
         return;
