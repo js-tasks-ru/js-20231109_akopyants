@@ -23,22 +23,22 @@ export default class ColumnChart {
     return div.firstElementChild;
   }
 
-  setLink() {
+  createLinkTemplate() {
     return this.link ? `<a href="${this.link}" class="column-chart__link">View all</a>` : "";
   }
 
   isLoaded() {
     const isDataEmpty = this.data.length === 0;
 
-    if (!isDataEmpty) {
-      this.element.classList.remove("column-chart_loading");
+    if (isDataEmpty) {
+      this.element.classList.add('column-chart_loading');
     }
   }
 
   createTemplate() {
-    return `<div class="column-chart column-chart_loading" style="--chart-height: ${this.chartHeight}">
+    return `<div class="column-chart" style="--chart-height: ${this.chartHeight}">
               <div class="column-chart__title">
-                Total ${this.label} ${this.setLink()}
+                Total ${this.label} ${this.createLinkTemplate()}
               </div>
               <div class="column-chart__container">
                 <div data-element="header" class="column-chart__header">${this.value}</div>
@@ -62,15 +62,11 @@ export default class ColumnChart {
 
   update(data) {
     this.data = data;
-
-    const isDataEmpty = this.data.length === 0;
     const columnChartBody = this.element.querySelector('[data-element="body"]');
 
     columnChartBody.innerHTML = this.createBody();
 
-    if (isDataEmpty) {
-      this.element.classList.add('column-chart_loading');
-    }
+    this.isLoaded();
   }
 
   remove() {
