@@ -14,7 +14,7 @@ export default class ColumnChart {
     this.value = formatHeading(value);
 
     this.element = this.createElement(this.createTemplate());
-    this.isLoaded();
+    this.toogleLoaderStatus();
   }
 
   createElement(html) {
@@ -27,7 +27,7 @@ export default class ColumnChart {
     return this.link ? `<a href="${this.link}" class="column-chart__link">View all</a>` : "";
   }
 
-  isLoaded() {
+  toogleLoaderStatus() {
     const isDataEmpty = this.data.length === 0;
     
     this.element.classList.toggle('column-chart_loading', isDataEmpty);
@@ -64,7 +64,7 @@ export default class ColumnChart {
 
     columnChartBody.innerHTML = this.createBody();
 
-    this.isLoaded();
+    this.toogleLoaderStatus();
   }
 
   remove() {
