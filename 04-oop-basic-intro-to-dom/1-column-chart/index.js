@@ -29,10 +29,8 @@ export default class ColumnChart {
 
   isLoaded() {
     const isDataEmpty = this.data.length === 0;
-
-    if (isDataEmpty) {
-      this.element.classList.add('column-chart_loading');
-    }
+    
+    this.element.classList.toggle('column-chart_loading', isDataEmpty);
   }
 
   createTemplate() {
