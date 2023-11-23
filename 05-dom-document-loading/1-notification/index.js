@@ -32,7 +32,7 @@ export default class NotificationMessage {
 
   show(target = document.body) {
     if (NotificationMessage.currentNotification) {
-      NotificationMessage.currentNotification.remove();
+      this.remove(NotificationMessage.currentNotification);
     }
 
     target.append(this.element);
@@ -43,8 +43,8 @@ export default class NotificationMessage {
     }, this.duration);
   }
 
-  remove() {
-    this.element.remove();
+  remove(target = this.element) {
+    target.remove();
 
     if (NotificationMessage.currentNotification === this) {
       NotificationMessage.currentNotification = null;
