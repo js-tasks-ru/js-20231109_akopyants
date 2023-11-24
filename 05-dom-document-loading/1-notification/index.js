@@ -13,9 +13,9 @@ export default class NotificationMessage {
   }
 
   createElement(html) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.firstElementChild;
+    const element = document.createElement("div");
+    element.innerHTML = html;
+    return element.firstElementChild;
   }
 
   createTemplate() {
@@ -32,7 +32,7 @@ export default class NotificationMessage {
 
   show(target = document.body) {
     if (NotificationMessage.currentNotification) {
-      this.remove(NotificationMessage.currentNotification);
+      NotificationMessage.currentNotification.remove();
     }
 
     target.append(this.element);
@@ -43,8 +43,8 @@ export default class NotificationMessage {
     }, this.duration);
   }
 
-  remove(target = this.element) {
-    target.remove();
+  remove() {
+    this.element.remove();
 
     if (NotificationMessage.currentNotification === this) {
       NotificationMessage.currentNotification = null;

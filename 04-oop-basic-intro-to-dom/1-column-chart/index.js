@@ -18,9 +18,9 @@ export default class ColumnChart {
   }
 
   createElement(html) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.firstElementChild;
+    const element = document.createElement("div");
+    element.innerHTML = html;
+    return element.firstElementChild;
   }
 
   createLinkTemplate() {
