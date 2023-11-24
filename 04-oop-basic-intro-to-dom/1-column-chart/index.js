@@ -18,9 +18,9 @@ export default class ColumnChart {
   }
 
   createElement(html) {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.firstElementChild;
+    const element = document.createElement("div");
+    element.innerHTML = html;
+    return element.firstElementChild;
   }
 
   createLinkTemplate() {
@@ -40,12 +40,12 @@ export default class ColumnChart {
               </div>
               <div class="column-chart__container">
                 <div data-element="header" class="column-chart__header">${this.value}</div>
-                <div data-element="body" class="column-chart__chart">${this.createBody()}</div>
+                <div data-element="body" class="column-chart__chart">${this.createBodyTemplate()}</div>
               </div>
 			      </div>`;
   }
 
-  createBody() {
+  createBodyTemplate() {
     const maxValue = Math.max(...this.data);
 
     return this.data
@@ -62,7 +62,7 @@ export default class ColumnChart {
     this.data = data;
     const columnChartBody = this.element.querySelector('[data-element="body"]');
 
-    columnChartBody.innerHTML = this.createBody();
+    columnChartBody.innerHTML = this.createBodyTemplate();
 
     this.toggleLoaderStatus();
   }
