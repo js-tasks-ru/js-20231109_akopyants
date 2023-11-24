@@ -95,12 +95,12 @@ export default class SortableTable {
         }
 
         cell.setAttribute("data-order", orderValue);
-        cell.insertAdjacentHTML('beforeend', this.createTemplateLink());
+        cell.insertAdjacentHTML('beforeend', this.createLinkTemplate());
       }
     });
   }
 
-  createTemplateLink() {
+  createLinkTemplate() {
     return `<span data-element="arrow" class="sortable-table__sort-arrow">
               <span class="sort-arrow"></span>
             </span>`;
