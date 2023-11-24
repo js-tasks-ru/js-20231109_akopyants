@@ -45,13 +45,13 @@ export default class NotificationMessage {
 
   remove() {
     this.element.remove();
-
-    if (NotificationMessage.currentNotification === this) {
-      NotificationMessage.currentNotification = null;
-    }
   }
 
   destroy() {
     this.remove();
+
+    if (NotificationMessage.currentNotification === this) {
+      NotificationMessage.currentNotification = null;
+    }
   }
 }
