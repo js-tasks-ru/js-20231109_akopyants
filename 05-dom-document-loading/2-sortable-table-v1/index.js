@@ -45,16 +45,16 @@ export default class SortableTable {
   }
 
   createBodyTemplate(data = this.data) {
-    return data.map((info) => this.createProductCardTemplate(info)).join("");
+    return data.map(this.createProductCardTemplate).join("");
   }
 
-  createProductCardTemplate(info) {
+  createProductCardTemplate = (info) => {
     return `<a href="${info.id}" class="sortable-table__row">
               ${this.createProductCardCellTemplate(info)}
             </a>`;
   }
 
-  createProductCardCellTemplate(info) {
+  createProductCardCellTemplate = (info) => {
     return this.headerConfig
       .map((item) => {
         return item.template
