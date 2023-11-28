@@ -38,7 +38,7 @@ export default class NotificationMessage {
     target.append(this.element);
     NotificationMessage.currentNotification = this;
 
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.remove();
     }, this.duration);
   }
@@ -48,6 +48,7 @@ export default class NotificationMessage {
   }
 
   destroy() {
+    clearTimeout(this.timer);
     this.remove();
 
     if (NotificationMessage.currentNotification === this) {
