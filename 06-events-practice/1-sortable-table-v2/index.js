@@ -117,7 +117,7 @@ export default class SortableTable {
       sortFunction = (a, b) => direction * (a[fieldValue] - b[fieldValue]);
     }
 
-    return this.data.sort(sortFunction);
+    return [...this.data].sort(sortFunction);
   }
 
   sortOnClient(fieldValue, orderValue) {
