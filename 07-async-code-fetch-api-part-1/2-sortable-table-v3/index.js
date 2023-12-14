@@ -54,7 +54,7 @@ export default class SortableTable {
   }
 
   renderProduct() {
-    if (this.data.length === 0) {
+    if (!this.data.length) {
       this.subElements.table.classList.add('sortable-table_empty');
       return;
     }
@@ -229,8 +229,6 @@ export default class SortableTable {
     const { bottom } = document.body.getBoundingClientRect();
 
     if (bottom < document.documentElement.clientHeight && !this.isDataLoading) {
-      console.log('scroll');
-
       this.isDataLoading = true;
       this.start = this.end;
       this.end = this.start + this.step;
@@ -242,7 +240,9 @@ export default class SortableTable {
   };
 
   remove() {
-    this.element.remove();
+    if (this.element) {
+      this.element.remove();
+    }
   }
 
   destroy() {
