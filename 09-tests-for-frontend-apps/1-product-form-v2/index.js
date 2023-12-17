@@ -40,9 +40,8 @@ export default class ProductForm {
     return this.element;
   }
 
-  async save(e) {
+  async save() {
     const formData = this.createFormData();
-
     const url = new URL('api/rest/products', BACKEND_URL);
     const method = this.isEditMode() ? 'PATCH' : 'PUT';
 
@@ -58,8 +57,8 @@ export default class ProductForm {
   }
 
   createFormData() {
-    const form = this.subElements.productForm;
-    const formData = new FormData(form);
+    const formElement = this.subElements.productForm;
+    const formData = new FormData(formElement);
 
     const imagesUrls = formData.getAll('url');
     const imagesSource = formData.getAll('source');
@@ -109,15 +108,15 @@ export default class ProductForm {
     this.save(e);
   };
 
-  handleUploadImageClick = (e) => {
+  handleUploadImageClick = () => {
     this.loadImage();
   };
-
-  loadImage = (e) => {
-    const input = this.subElements.inputFile;
-    input.click();
+  
+  loadImage = () => {
+    const inputFileElement = this.subElements.inputFile;
+    inputFileElement.click();
     this.subElements.uploadImage.classList.add('is-loading');
-    input.addEventListener('change', this.handleImageChange);
+    inputFileElement.addEventListener('change', this.handleImageChange);
   };
 
   handleImageChange = async (e) => {
@@ -179,43 +178,39 @@ export default class ProductForm {
   }
 
   async getProductInfo() {
-    const params = new URLSearchParams({
-      id: this.productId,
-    });
-    const url = new URL(`${BACKEND_URL}/api/rest/products?${params}`);
+    const url = new URL(`${BACKEND_URL}/api/rest/products?`);
+    url.searchParams.set('id', this.productId);
     const data = await fetchJson(url);
     return data;
   }
 
   async getCategories() {
-    const params = new URLSearchParams({
-      _sort: 'weight',
-      _refs: 'subcategory',
-    });
-    const url = new URL(`${BACKEND_URL}/api/rest/categories?${params}`);
+    const url = new URL(`${BACKEND_URL}/api/rest/categories?`);
+    url.searchParams.set('_sort', 'weight');
+    url.searchParams.set('_refs', 'subcategory');
     const data = await fetchJson(url);
     return data;
   }
 
   fillFormData() {
     if (this.productInfo) {
-      const form = this.subElements.productForm;
+      const formElement = this.subElements.productForm;
       const fields = ['title', 'description', 'quantity', 'subcategory', 'status', 'price', 'discount'];
       const subcategory = this.productInfo.subcategory;
 
       fields.forEach((field) => {
-        form.elements[field].value = this.productInfo[field];
+        formElement.elements[field].value = this.productInfo[field];
       });
 
-      const options = form.elements['subcategory'].querySelectorAll('option');
+      const optionElements = formElement.elements['subcategory'].querySelectorAll('option');
 
-      options.forEach((option) => {
+      optionElements.forEach((option) => {
         if (option.value === this.productInfo.subcategory) {
           option.selected = true;
         }
       });
 
-      const selectedOption = Array.from(form.elements['subcategory'].options).find(
+      const selectedOption = Array.from(formElement.elements['subcategory'].options).find(
         (option) => option.value === subcategory
       );
 
