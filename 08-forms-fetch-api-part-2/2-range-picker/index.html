@@ -16,19 +16,20 @@
 </style>
 
 <link rel="stylesheet" href="style.css">
-
+<body>
 <div id="holder" class="container"></div>
+</body>
 
 <script type="module">
   import RangePicker from './index.js';
 
   const rangePicker = new RangePicker({
-    from: new Date(2019, 9, 2),
-    to: new Date(2019, 10, 5)
+    from: new Date(2023, 11, 15),
+    to: new Date(2024, 0, 14)
   });
 
   holder.append(rangePicker.element);
-
+  console.log(rangePicker.element)
   rangePicker.element.addEventListener('date-select', event => {
     console.error(event);
   });
