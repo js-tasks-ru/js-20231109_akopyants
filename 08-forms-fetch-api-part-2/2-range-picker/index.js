@@ -54,7 +54,7 @@ export default class RangePicker {
   }
 
   handleDocumentClick = (e) => {
-    if (!e.target.closest('.rangepicker') && this.israngePickerOpen) {
+    if (!e.target.closest('.rangepicker') && this.israngePickerOpen && e.target.classList.contains('control') === false) {
       this.close();
     }
   }
@@ -197,8 +197,8 @@ export default class RangePicker {
 
     this.subElements.selector.innerHTML = `
               <div class="rangepicker__selector-arrow"></div>
-              <div class="rangepicker__selector-control-left"></div>
-              <div class="rangepicker__selector-control-right"></div>
+              <div class="rangepicker__selector-control-left control"></div>
+              <div class="rangepicker__selector-control-right control"></div>
               ${this.createCalendarTemplate(currentMonth)}
               ${this.createCalendarTemplate(nextMonth)}`;
 
@@ -208,7 +208,7 @@ export default class RangePicker {
     controlLeft.addEventListener('click', this.handleControlLeftClick);
     controlRight.addEventListener('click', this.handleControlRightClick);
             
-    this.highliteDates()
+    this.highliteDates();
   }
 
   handleControlLeftClick = () => {
@@ -217,7 +217,7 @@ export default class RangePicker {
   }
 
   handleControlRightClick = () => {
-    this.showFrom.setMonth( this.showFrom.getMonth() + 1)
+    this.showFrom.setMonth( this.showFrom.getMonth() + 1);
     this.createRangePickerSelectorTemplate();
   }
   

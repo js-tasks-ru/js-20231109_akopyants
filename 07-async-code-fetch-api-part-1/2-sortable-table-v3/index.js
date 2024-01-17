@@ -225,6 +225,16 @@ export default class SortableTable {
     this.subElements.body.append(...element.children);
   }
 
+  async update(from, to) {
+    this.dataUpdate();
+    const url = new URL(`${BACKEND_URL}/${this.url}?from=${from}&to=${to}`);
+    const data = await fetchJson(url);
+
+    this.dataUpdate(data);
+
+    return data;
+  }
+
   handleWindowScroll = async () => {
     const { bottom } = document.body.getBoundingClientRect();
 
